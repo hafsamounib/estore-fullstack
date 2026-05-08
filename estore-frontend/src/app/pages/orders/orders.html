@@ -1,0 +1,46 @@
+<div class="page">
+  <h1 class="page-title">My Orders</h1>
+
+  <div *ngIf="loading" class="loading"><div class="spinner"></div></div>
+
+  <div *ngIf="!loading && orders.length === 0" class="empty-state">
+    <div class="empty-icon">📦</div>
+    <h3>No orders yet</h3>
+    <p>Start shopping and your orders will appear here</p>
+    <a routerLink="/catalog" class="btn btn-primary" style="display:inline-block;margin-top:1rem;text-decoration:none">
+      Browse Catalog
+    </a>
+  </div>
+
+  <div *ngIf="!loading" class="orders-list">
+    <div class="order-card card" *ngFor="let order of orders">
+      <!-- Order header -->
+      <div class="order-header" (click)="toggle(order.id)">
+        <div class="order-meta">
+          <span class="order-id">#{{ order.id }}</span>
+          <span class="order-date">{{ formatDate(order.createdAt) }}</span>
+        </div>
+        <div class="order-right">
+          <span class="badge" [ngClass]="statusClass(order.status)">{{ order.status }}</span>
+          <span class="order-total">{{ order.totalAmount | number:'1.2-2' }} MAD</span>
+          <span class="chevron" [class.open]="expandedOrder === order.id">▾</span>
+        </div>
+      </div>
+
+      <!-- Order items (expandable) -->
+      <div class="order-items" *ngIf="expandedOrder === order.id">
+        <div class="order-item" *ngFor="let item of order.items">
+          <img [src]="item.product.imageUrl" [alt]="item.product.name" class="item-thumb" />
+          <div class="item-details">
+            <span class="item-name">{{ item.product.name }}</span>
+            <span class="item-meta">{{ item.quantity }} × {{ item.unitPrice | number:'1.2-2' }} MAD</span>
+          </div>
+          <span class="item-total">{{ (item.quantity * item.unitPrice) | number:'1.2-2' }} MAD</span>
+        </div>
+        <div class="order-footer">
+          <span>Total: <strong>{{ order.totalAmount | number:'1.2-2' }} MAD</strong></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

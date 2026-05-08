@@ -1,0 +1,101 @@
+<div class="page">
+  <a routerLink="/catalog" class="back-link">← Back to Catalog</a>
+
+  <div *ngIf="loading" class="loading"><div class="spinner"></div></div>
+
+  <div *ngIf="!loading && product" class="detail-layout">
+    <!-- Left: Image -->
+    <div class="img-section">
+      <img [src]="product.imageUrl || 'https://via.placeholder.com/400x300?text=No+Image'"
+           [alt]="product.name" class="detail-img" />
+    </div>
+
+    <!-- Right: Info -->
+    <div class="info-section">
+      <span class="category-tag">{{ product.category?.name }}</span>
+      <h1 class="product-title">{{ product.name }}</h1>
+      <p class="product-desc">{{ product.description }}</p>
+
+      <div class="rating-row" *ngIf="reviews.length > 0">
+        <span class="stars">
+          <span *ngFor="let s of stars" [class.filled]="s <= avgRating">★</span>
+        </span>
+        <span class="rating-count">({{ reviews.length }} reviews)</span>
+      </div>
+
+      <div class="price-row">
+        <span class="price">{{ product.price | number:'1.2-2' }} MAD</span>
+        <span class="stock" [class.out]="product.inventory?.quantity === 0">
+          {{ product.inventory?.quantity > 0
+            ? 'In Stock (' + product.inventory?.quantity + ')'
+            : 'Out of Stock' }}
+        </span>
+      </div>
+
+      <div *ngIf="auth.isLoggedIn() && product.inventory?.quantity > 0" class="qty-row">
+        <label>Quantity</label>
+        <div class="qty-control">
+          <button (click)="decreaseQty()">−</button>
+          <span>{{ quantity }}</span>
+          <button (click)="increaseQty()">+</button>
+        </div>
+      </div>
+
+      <button
+        class="btn btn-primary add-btn"
+        (click)="addToCart()"
+        [disabled]="!auth.isLoggedIn() || product.inventory?.quantity === 0 || added">
+        {{ added ? '✓ Added to Cart!' : (auth.isLoggedIn() ? 'Add to Cart' : 'Login to Buy') }}
+      </button>
+
+      <div *ngIf="successMsg" class="msg-success">
+        ✅ {{ successMsg }}
+      </div>
+
+      <div *ngIf="errorMsg" class="msg-error">
+        ❌ {{ errorMsg }}
+      </div>
+    </div>
+  </div>
+
+  <!-- Reviews Section -->
+  <div *ngIf="!loading && product" class="reviews-section">
+    <h2 class="section-title">Customer Reviews</h2>
+
+    <div *ngIf="auth.isLoggedIn()" class="review-form card">
+      <h3>Write a Review</h3>
+      <div class="star-select">
+        <span *ngFor="let s of stars"
+              (click)="newReview.rating = s"
+              [class.filled]="s <= newReview.rating"
+              class="star-pick">★</span>
+      </div>
+      <textarea [(ngModel)]="newReview.comment"
+                placeholder="Share your experience..."
+                rows="3"></textarea>
+      <div *ngIf="reviewSubmitted" class="alert alert-success">Review submitted!</div>
+      <button class="btn btn-secondary" (click)="submitReview()" [disabled]="!newReview.comment">
+        Submit Review
+      </button>
+    </div>
+
+    <div *ngIf="reviews.length === 0" class="empty-state">
+      <div class="empty-icon">💬</div>
+      <h3>No reviews yet</h3>
+      <p>Be the first to review this product</p>
+    </div>
+
+    <div class="review-list">
+      <div class="review-card card" *ngFor="let review of reviews">
+        <div class="review-header">
+          <strong>{{ review.userName }}</strong>
+          <span class="stars small">
+            <span *ngFor="let s of stars" [class.filled]="s <= review.rating">★</span>
+          </span>
+          <span class="review-date">{{ review.createdAt | date:'mediumDate' }}</span>
+        </div>
+        <p>{{ review.comment }}</p>
+      </div>
+    </div>
+  </div>
+</div>

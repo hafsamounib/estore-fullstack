@@ -1,0 +1,79 @@
+<div class="page">
+  <div class="catalog-header">
+    <h1 class="page-title">Product Catalog</h1>
+
+    <!-- Search bar -->
+    <div class="search-bar">
+      <input
+        type="text"
+        placeholder="Search products..."
+        [(ngModel)]="searchQuery"
+        (keyup.enter)="search()"
+      />
+      <button class="btn btn-primary" (click)="search()">Search</button>
+    </div>
+  </div>
+
+  <!-- Category filters -->
+  <div class="categories">
+    <button
+     type="button"
+      class="cat-btn"
+      [class.active]="selectedCategory === null"
+      (click)="filterByCategory(null)">All</button>
+    <button
+     type="button"
+      *ngFor="let cat of categories"
+      class="cat-btn"
+      [class.active]="selectedCategory === cat.id"
+      (click)="filterByCategory(cat.id)">
+      {{ cat.name }}
+    </button>
+  </div>
+
+  <!-- Loading -->
+  <div *ngIf="loading" class="loading">
+    <div class="spinner"></div>
+  </div>
+
+  <!-- Empty state -->
+  <div *ngIf="!loading && products.length === 0" class="empty-state">
+    <div class="empty-icon">🔍</div>
+    <h3>No products found</h3>
+    <p>Try a different search or category</p>
+  </div>
+
+  <!-- Product grid -->
+  <div *ngIf="!loading" class="products-grid">
+    <div class="product-card card" *ngFor="let product of products">
+      <a [routerLink]="['/product', product.id]">
+        <img
+          [src]="product.imageUrl || 'https://via.placeholder.com/300x200?text=No+Image'"
+          [alt]="product.name"
+          class="product-img"
+        />
+      </a>
+      <div class="product-info">
+        <span class="category-tag">{{ product.category?.name }}</span>
+        <a [routerLink]="['/product', product.id]">
+          <h3 class="product-name">{{ product.name }}</h3>
+        </a>
+        <p class="product-desc">{{ product.description }}</p>
+        <div class="product-footer">
+          <span class="price">{{ product.price | number:'1.2-2' }} MAD</span>
+          <span class="stock"
+            [class.low]="product.inventory?.quantity <= 5"
+            [class.out]="product.inventory?.quantity === 0">
+            {{ product.inventory?.quantity > 0 ? 'In stock (' + product.inventory?.quantity + ')' : 'Out of stock' }}
+          </span>
+        </div>
+        <button
+          class="btn btn-primary add-btn"
+          (click)="addToCart(product)"
+          [disabled]="!auth.isLoggedIn() || product.inventory?.quantity === 0 || addedProductId === product.id">
+          {{ addedProductId === product.id ? '✓ Added!' : (auth.isLoggedIn() ? 'Add to Cart' : 'Login to Buy') }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

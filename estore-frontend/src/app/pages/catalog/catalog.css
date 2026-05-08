@@ -1,0 +1,216 @@
+/* ── Hero header ─── */
+.catalog-header {
+  background: linear-gradient(135deg, #004D59 0%, #006978 100%);
+  padding: 3rem 2rem 2.5rem;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 6px 24px rgba(0, 77, 89, 0.22);
+}
+
+.catalog-header .page-title {
+  color: #fff;
+  font-size: 2.2rem;
+  margin-bottom: 0;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Search bar inside hero */
+.catalog-header .search-bar { width: 100%; max-width: 480px; }
+
+.catalog-header .search-bar input {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1.5px solid rgba(255, 255, 255, 0.35);
+  color: #fff;
+  backdrop-filter: blur(4px);
+}
+.catalog-header .search-bar input::placeholder { color: rgba(255, 255, 255, 0.65); }
+.catalog-header .search-bar input:focus {
+  outline: none;
+  background: rgba(255, 255, 255, 0.22);
+  border-color: #00BCD4;
+  box-shadow: 0 0 0 3px rgba(0, 188, 212, 0.28);
+}
+
+.catalog-header .btn-primary {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1.5px solid rgba(255, 255, 255, 0.55);
+  box-shadow: none;
+}
+.catalog-header .btn-primary:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-1px);
+}
+
+/* ── Search bar (outside hero context) ─── */
+.search-bar { display: flex; gap: 0.5rem; }
+.search-bar input {
+  padding: 0.6rem 1rem;
+  border: 1.5px solid #ddd;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  width: 280px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.search-bar input:focus {
+  outline: none;
+  border-color: #00BCD4;
+  box-shadow: 0 0 0 3px rgba(0, 188, 212, 0.12);
+}
+
+/* ── Category filters ─── */
+.categories {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+
+.cat-btn {
+  padding: 0.45rem 1.1rem;
+  border-radius: 20px;
+  border: 1.5px solid #ccc;
+  background: #fff;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.2s;
+  color: #555;
+}
+.cat-btn:hover {
+  border-color: #004D59;
+  color: #004D59;
+  background: #EFF7F8;
+}
+.cat-btn.active {
+  background: #004D59;
+  color: #fff;
+  border-color: #004D59;
+  box-shadow: 0 2px 8px rgba(0, 77, 89, 0.25);
+}
+
+/* ── Product grid ─── */
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+
+.product-card {
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.25s, box-shadow 0.25s;
+  overflow: hidden;
+}
+.product-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 32px rgba(0, 77, 89, 0.16);
+}
+
+.product-img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  transition: transform 0.35s;
+}
+.product-card:hover .product-img { transform: scale(1.04); }
+
+.product-info {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 0.45rem;
+}
+
+/* ── Category badge ─── */
+.category-tag {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 0.22rem 0.65rem;
+  border-radius: 20px;
+  background: #E0F7FA;
+  color: #006978;
+  align-self: flex-start;
+}
+
+.product-name {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #212121;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.product-name:hover { color: #004D59; }
+
+.product-desc {
+  font-size: 0.85rem;
+  color: #777;
+  flex: 1;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.product-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+
+.price {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #004D59;
+}
+
+.stock { font-size: 0.78rem; color: #2E7D32; font-weight: 600; }
+.stock.low { color: #E65100; }
+.stock.out { color: #C62828; }
+
+/* ── Add to Cart button ─── */
+.add-btn {
+  width: 100%;
+  margin-top: 0.7rem;
+  padding: 0.65rem;
+  background: linear-gradient(135deg, #004D59 0%, #006978 100%);
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 2px 8px rgba(0, 77, 89, 0.2);
+}
+.add-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #003D47 0%, #00556A 100%);
+  box-shadow: 0 4px 14px rgba(0, 77, 89, 0.3);
+  transform: translateY(-1px);
+}
+.add-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* ── Spinner ─── */
+.loading { display: flex; justify-content: center; padding: 4rem; }
+.spinner {
+  width: 40px; height: 40px;
+  border: 4px solid #E0F2F3;
+  border-top-color: #004D59;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }

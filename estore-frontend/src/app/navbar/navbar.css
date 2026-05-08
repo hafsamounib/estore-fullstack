@@ -1,0 +1,140 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  height: 64px;
+  background: linear-gradient(90deg, #004D59 0%, #006978 100%);
+  box-shadow: 0 2px 16px rgba(0, 77, 89, 0.35);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+/* ── Logo ─── */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  text-decoration: none;
+  color: #fff;
+  font-size: 1.4rem;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+
+.brand-icon {
+  font-size: 1.2rem;
+  background: rgba(255, 255, 255, 0.15);
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid rgba(255, 255, 255, 0.3);
+  transition: background 0.2s;
+}
+.brand:hover .brand-icon { background: rgba(255, 255, 255, 0.25); }
+
+/* ── Nav links ─── */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1.8rem;
+}
+
+.nav-links a {
+  color: rgba(255, 255, 255, 0.82);
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  position: relative;
+  padding-bottom: 4px;
+  transition: color 0.2s;
+}
+
+/* Sliding underline on hover */
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: #00BCD4;
+  border-radius: 2px;
+  transition: width 0.25s ease;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: #fff;
+}
+
+.nav-links a:hover::after,
+.nav-links a.active::after {
+  width: 100%;
+}
+
+/* ── Cart badge ─── */
+.cart-link { position: relative; }
+
+.badge {
+  position: absolute;
+  top: -10px;
+  right: -12px;
+  background: #C62828;
+  color: #fff;
+  font-size: 0.62rem;
+  font-weight: 700;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #006978;
+  animation: badgePop 0.2s ease;
+}
+
+@keyframes badgePop {
+  0%   { transform: scale(0); }
+  80%  { transform: scale(1.15); }
+  100% { transform: scale(1); }
+}
+
+/* ── Auth buttons ─── */
+.btn-logout {
+  background: transparent;
+  border: 1.5px solid rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.88);
+  padding: 0.35rem 0.9rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.88rem;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+.btn-logout:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: #fff;
+  color: #fff;
+}
+
+.btn-register {
+  background: linear-gradient(135deg, #00BCD4, #0097A7);
+  color: #fff !important;
+  padding: 0.38rem 1.1rem;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  transition: opacity 0.2s, transform 0.15s;
+  box-shadow: 0 2px 8px rgba(0, 188, 212, 0.4);
+}
+.btn-register:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+/* No underline animation for the register button */
+.btn-register::after { display: none !important; }

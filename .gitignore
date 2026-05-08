@@ -1,0 +1,9 @@
+# Backend
+estore-backend/target/
+estore-backend/.idea/
+
+# Frontend
+estore-frontend/node_modules/
+estore-frontend/.angular/
+estore-frontend/dist/
+estore-frontend/target/

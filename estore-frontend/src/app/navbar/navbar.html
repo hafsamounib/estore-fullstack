@@ -1,0 +1,23 @@
+<nav class="navbar">
+  <a routerLink="/catalog" class="brand">
+    <span class="brand-icon">🛍</span>
+    <span class="brand-name">EStore</span>
+  </a>
+
+  <div class="nav-links">
+    <a routerLink="/catalog" routerLinkActive="active">Catalog</a>
+    <ng-container *ngIf="auth.isLoggedIn()">
+      <a routerLink="/cart" routerLinkActive="active" class="cart-link">
+        Cart
+        <span class="badge" *ngIf="cartCount > 0">{{ cartCount }}</span>
+      </a>
+      <a routerLink="/orders" routerLinkActive="active">Orders</a>
+      <a routerLink="/profile" routerLinkActive="active">{{ user?.name }}</a>
+      <button class="btn-logout" (click)="logout()">Logout</button>
+    </ng-container>
+    <ng-container *ngIf="!auth.isLoggedIn()">
+      <a routerLink="/login" routerLinkActive="active">Login</a>
+      <a routerLink="/register" class="btn-register">Register</a>
+    </ng-container>
+  </div>
+</nav>
