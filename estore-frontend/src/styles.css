@@ -1,0 +1,118 @@
+/* Global styles — EStore design system */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --primary:   #004D59;
+  --secondary: #006978;
+  --accent:    #00BCD4;
+  --text:      #212121;
+  --bg:        #F8F9FA;
+  --success:   #2E7D32;
+  --danger:    #C62828;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* ── Shared containers ─── */
+.page { padding: 2rem; max-width: 1200px; margin: 0 auto; }
+.page-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 1.5rem;
+}
+
+/* ── Buttons ─── */
+.btn {
+  padding: 0.6rem 1.4rem;
+  border-radius: 8px;
+  border: none;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-primary {
+  background: linear-gradient(135deg, #004D59 0%, #006978 100%);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(0, 77, 89, 0.25);
+}
+.btn-primary:hover {
+  background: linear-gradient(135deg, #003D47 0%, #00556A 100%);
+  box-shadow: 0 4px 14px rgba(0, 77, 89, 0.35);
+  transform: translateY(-1px);
+}
+.btn-secondary { background: #006978; color: #fff; }
+.btn-secondary:hover { background: #004D59; transform: translateY(-1px); }
+.btn-outline {
+  background: transparent;
+  border: 2px solid #004D59;
+  color: #004D59;
+}
+.btn-outline:hover { background: #004D59; color: #fff; }
+.btn-danger { background: #C62828; color: #fff; }
+.btn-danger:hover { background: #A21B1B; }
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* ── Form shared ─── */
+.form-group { margin-bottom: 1.2rem; }
+.form-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+  color: #444;
+}
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 0.7rem 1rem;
+  border: 1.5px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  background: #fff;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #00BCD4;
+  box-shadow: 0 0 0 3px rgba(0, 188, 212, 0.12);
+}
+
+/* ── Alerts ─── */
+.alert {
+  padding: 0.8rem 1.2rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+.alert-error   { background: #FFEBEE; color: #C62828; border-left: 4px solid #C62828; }
+.alert-success { background: #E8F5E9; color: #2E7D32; border-left: 4px solid #2E7D32; }
+
+/* ── Cards ─── */
+.card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
+  overflow: hidden;
+}
+
+/* ── Empty state ─── */
+.empty-state {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: #888;
+}
+.empty-state .empty-icon { font-size: 4rem; margin-bottom: 1rem; }
+.empty-state h3 { font-size: 1.3rem; margin-bottom: 0.5rem; color: #555; }
