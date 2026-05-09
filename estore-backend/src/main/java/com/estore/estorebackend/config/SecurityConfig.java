@@ -33,13 +33,19 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf -> csrf.disable())
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+                .csrf(csrf -> csrf.disable())
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                        .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/api/profile/**").permitAll()
-                        .requestMatchers("/**").permitAll()
+                        .requestMatchers("/api/products/**").permitAll()
+                        .requestMatchers("/api/categories/**").permitAll()
+                        .requestMatchers("/api/cart/**").permitAll()
+                        .requestMatchers("/api/orders/**").permitAll()
+                        .requestMatchers("/api/reviews/**").permitAll()
+                        .anyRequest().authenticated()
                 )
                 .headers(h -> h.frameOptions(f -> f.disable()))
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
@@ -71,7 +77,9 @@ public class SecurityConfig {
         config.setAllowedOriginPatterns(List.of("*"));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
         config.setAllowedHeaders(List.of("*"));
+        config.setExposedHeaders(List.of("Authorization"));
         config.setAllowCredentials(false);
+        config.setMaxAge(3600L);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);
         return source;
