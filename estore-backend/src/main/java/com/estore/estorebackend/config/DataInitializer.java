@@ -84,6 +84,28 @@ public class DataInitializer implements CommandLineRunner {
             }
         }
 
+        // --- Additional Products (fill up to 12 total) ---
+        if (productRepo.count() < 12) {
+            categoryRepo.findByName("Electronics").ifPresent(elec -> {
+                seed("iPhone 15 Pro",  "Apple 128GB",      8999.0,
+                     "https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=400", elec, 20);
+                seed("AirPods Pro",    "Noise cancelling", 2499.0,
+                     "https://images.unsplash.com/photo-1600294037681-c80b4cb5b434?w=400", elec, 30);
+            });
+            categoryRepo.findByName("Books").ifPresent(books -> {
+                seed("The Pragmatic Programmer", "Hunt & Thomas",  259.0,
+                     "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=400", books, 40);
+                seed("Introduction to Algorithms", "CLRS",         449.0,
+                     "https://images.unsplash.com/photo-1532012197267-da84d127e765?w=400", books, 25);
+            });
+            categoryRepo.findByName("Sport").ifPresent(sport -> {
+                seed("Running Shoes Adidas", "Ultraboost",  899.0,
+                     "https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=400", sport, 15);
+                seed("Football Nike",        "Size 5",      199.0,
+                     "https://images.unsplash.com/photo-1614632537190-23e4e2b05bba?w=400", sport, 50);
+            });
+        }
+
         // --- Profiles ---
         if (profileRepo.count() == 0) {
             User testUser = userRepo.findByEmail("user@estore.com").orElse(null);
