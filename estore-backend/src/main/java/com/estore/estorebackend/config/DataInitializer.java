@@ -6,8 +6,10 @@ import com.estore.estorebackend.catalog.Product;
 import com.estore.estorebackend.catalog.ProductRepository;
 import com.estore.estorebackend.customer.User;
 import com.estore.estorebackend.customer.UserRepository;
+import com.estore.estorebackend.entity.Profile;
 import com.estore.estorebackend.inventory.Inventory;
 import com.estore.estorebackend.inventory.InventoryRepository;
+import com.estore.estorebackend.repository.ProfileRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -19,17 +21,20 @@ public class DataInitializer implements CommandLineRunner {
     private final ProductRepository productRepo;
     private final InventoryRepository inventoryRepo;
     private final UserRepository userRepo;
+    private final ProfileRepository profileRepo;
     private final PasswordEncoder passwordEncoder;
 
     public DataInitializer(CategoryRepository categoryRepo,
                            ProductRepository productRepo,
                            InventoryRepository inventoryRepo,
                            UserRepository userRepo,
+                           ProfileRepository profileRepo,
                            PasswordEncoder passwordEncoder) {
         this.categoryRepo = categoryRepo;
         this.productRepo = productRepo;
         this.inventoryRepo = inventoryRepo;
         this.userRepo = userRepo;
+        this.profileRepo = profileRepo;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -77,6 +82,34 @@ public class DataInitializer implements CommandLineRunner {
                     .password(passwordEncoder.encode("user123"))
                     .role(User.Role.USER)
                     .build());
+
+        // Créer le profil pour Test User
+        User testUser = userRepo.findByEmail("user@estore.com").orElse(null);
+        if (testUser != null && profileRepo.findByUserId(testUser.getId()).isEmpty()) {
+            Profile profile = Profile.builder()
+                    .user(testUser)
+                    .phone("+212723781160")
+                    .address("Al azhar bernoussi")
+                    .city("Casablanca")
+                    .country("Maroc")
+                    .build();
+            profileRepo.save(profile);
+            System.out.println("✅ Profil Test User créé");
+        }
+
+        // Créer le profil pour Admin
+        User adminUser = userRepo.findByEmail("admin@estore.com").orElse(null);
+        if (adminUser != null && profileRepo.findByUserId(adminUser.getId()).isEmpty()) {
+            Profile profile = Profile.builder()
+                    .user(adminUser)
+                    .phone("+212600000000")
+                    .address("FSBM")
+                    .city("Casablanca")
+                    .country("Maroc")
+                    .build();
+            profileRepo.save(profile);
+            System.out.println("✅ Profil Admin créé");
+        }
 
         System.out.println("✅ EStore data initialized successfully!");
     }
